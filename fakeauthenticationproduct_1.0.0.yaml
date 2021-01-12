@@ -1,7 +1,8 @@
 info:
-  version: 1.0.0
-  title: FakeAuthenticationProduct
   name: fakeauthenticationproduct
+  title: FakeAuthenticationProduct
+  version: 1.0.0
+  summary: 'test '
   description: It contains the fake authentication API to be used with OAuth and URL
     authentication User Registry
 gateways:

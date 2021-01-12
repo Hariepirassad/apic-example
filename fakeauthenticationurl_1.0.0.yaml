@@ -2,9 +2,22 @@ swagger: "2.0"
 info:
   title: FakeAuthenticationURL
   x-ibm-name: fakeauthenticationurl
+  x-ibm-summary: 'test '
   version: 1.0.0
   description: Use to simulate a user registry to test OAuth. The user registry should
     be used as a URL Authentication user registry. The endpoint is $(catalog)/fakeauth/v1/basic-auth
+schemes:
+- https
+basePath: /fakeauth/v1
+produces:
+- application/json
+security:
+- {}
+securityDefinitions:
+  clientID:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
 x-ibm-configuration:
   cors:
     enabled: true
@@ -92,7 +105,42 @@ x-ibm-configuration:
     enabled: true
     error-content: header
     success-content: activity
-basePath: /fakeauth/v1
+definitions:
+  UserCredential:
+    type: object
+    description: Object containing the credentials in order to perform authentication
+      (uid and password)
+    additionalProperties: false
+    properties:
+      uid:
+        type: string
+        description: The user id of the user
+        example: foo
+      pwd:
+        type: string
+        description: The password associated with the user
+        example: foo
+  AuthenticatedUser:
+    type: object
+    description: Object returned when a user is authenticated
+    additionalProperties: false
+    properties:
+      username:
+        type: string
+        description: The user id of the authenticated user
+        example: myuser
+      email:
+        type: string
+        description: The email of the authenticated user
+        example: myuser@example.com
+      first_name:
+        type: string
+        description: First name of the user
+        example: My
+      last_name:
+        type: string
+        description: Last name of the user
+        example: User
 paths:
   /basic-auth:
     parameters:
@@ -163,50 +211,3 @@ paths:
       produces: []
       description: This path is used to validate that the API Connect is correctly
         answering. No argument, no backend invocation,  just a ping.
-securityDefinitions:
-  clientID:
-    type: apiKey
-    in: header
-    name: X-IBM-Client-Id
-security:
-- {}
-schemes:
-- https
-definitions:
-  UserCredential:
-    type: object
-    description: Object containing the credentials in order to perform authentication
-      (uid and password)
-    additionalProperties: false
-    properties:
-      uid:
-        type: string
-        description: The user id of the user
-        example: foo
-      pwd:
-        type: string
-        description: The password associated with the user
-        example: foo
-  AuthenticatedUser:
-    type: object
-    description: Object returned when a user is authenticated
-    additionalProperties: false
-    properties:
-      username:
-        type: string
-        description: The user id of the authenticated user
-        example: myuser
-      email:
-        type: string
-        description: The email of the authenticated user
-        example: myuser@example.com
-      first_name:
-        type: string
-        description: First name of the user
-        example: My
-      last_name:
-        type: string
-        description: Last name of the user
-        example: User
-produces:
-- application/json
